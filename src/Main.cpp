@@ -14,7 +14,7 @@ NEW_GAME:
 
 	rom = "./games/" + rom;
 
-	Chip8 chip8{};
+	Chip8 chip8;
 	if ( !chip8.LoadROM(rom.c_str()) )
 	{
 		std::cerr << Color(0x0C) << "Failed To Load ROM" << std::endl;

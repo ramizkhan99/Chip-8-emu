@@ -41,8 +41,8 @@ Chip8::Chip8() : gfx{}, memory{}, stack{}, V{}, key(), drawFlag(false)
 
 	if ( !soundBuffer.loadFromFile("beep.wav") )
 	{
-		std::cout << Color(0x0C) << "beep.wav not found. No audio would be provided" << std::endl;
-		Color();
+		std::cout << Color(0x0C) << "[beep.wav not found] ";
+		std::cout << Color() << " No audio would be provided" << std::endl;
 	}
 
 	beep.setBuffer(soundBuffer);
