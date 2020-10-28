@@ -3,7 +3,6 @@
 #include <Windows.h>
 
 #include "Chip8.h"
-#include "ConsoleColor.h"
 
 // TODO: Track keypresses and enable audio
 
@@ -11,7 +10,7 @@ int main()
 {
 	// FIXME: Fix the display issues
 	Chip8 chip8{};
-	if ( !chip8.LoadROM("./games/BLITZ") )
+	if ( !chip8.LoadROM("./games/PONG") )
 	{
 		std::cerr << Color(0x0C) << "Failed mate" << "\n";
 		std::cin.get();
@@ -34,7 +33,7 @@ int main()
 	}
 
 	sf::RenderWindow window(sf::VideoMode(pixelSize * 64, pixelSize * 32), "Chip 8");
-	window.setFramerateLimit(60);
+	//window.setFramerateLimit(60);
 
 	while ( window.isOpen() )
 	{
@@ -44,6 +43,170 @@ int main()
 			if ( event.type == sf::Event::Closed )
 			{
 				window.close();
+			}
+
+			if ( event.type == sf::Event::KeyPressed )
+			{
+				if ( event.key.code == sf::Keyboard::Num1 )
+				{
+					chip8.SetKeys(1);
+				}
+
+				if ( event.key.code == sf::Keyboard::Num2 )
+				{
+					chip8.SetKeys(2);
+				}
+
+				if ( event.key.code == sf::Keyboard::Num3 )
+				{
+					chip8.SetKeys(3);
+				}
+
+				if ( event.key.code == sf::Keyboard::Num4 )
+				{
+					chip8.SetKeys(0xC);
+				}
+
+				if ( event.key.code == sf::Keyboard::Q )
+				{
+					chip8.SetKeys(4);
+				}
+
+				if ( event.key.code == sf::Keyboard::W )
+				{
+					chip8.SetKeys(5);
+				}
+
+				if ( event.key.code == sf::Keyboard::E )
+				{
+					chip8.SetKeys(6);
+				}
+
+				if ( event.key.code == sf::Keyboard::R )
+				{
+					chip8.SetKeys(0xD);
+				}
+
+				if ( event.key.code == sf::Keyboard::A )
+				{
+					chip8.SetKeys(7);
+				}
+
+				if ( event.key.code == sf::Keyboard::S )
+				{
+					chip8.SetKeys(8);
+				}
+
+				if ( event.key.code == sf::Keyboard::D )
+				{
+					chip8.SetKeys(9);
+				}
+
+				if ( event.key.code == sf::Keyboard::F )
+				{
+					chip8.SetKeys(0xE);
+				}
+				if ( event.key.code == sf::Keyboard::Z )
+				{
+					chip8.SetKeys(0xA);
+				}
+
+				if ( event.key.code == sf::Keyboard::X )
+				{
+					chip8.SetKeys(0);
+				}
+
+				if ( event.key.code == sf::Keyboard::C )
+				{
+					chip8.SetKeys(0xB);
+				}
+
+				if ( event.key.code == sf::Keyboard::V )
+				{
+					chip8.SetKeys(0xF);
+				}
+			}
+
+			if ( event.type == sf::Event::KeyReleased )
+			{
+				if ( event.key.code == sf::Keyboard::Num1 )
+				{
+					chip8.UnsetKeys(1);
+				}
+
+				if ( event.key.code == sf::Keyboard::Num2 )
+				{
+					chip8.UnsetKeys(2);
+				}
+
+				if ( event.key.code == sf::Keyboard::Num3 )
+				{
+					chip8.UnsetKeys(3);
+				}
+
+				if ( event.key.code == sf::Keyboard::Num4 )
+				{
+					chip8.UnsetKeys(0xC);
+				}
+
+				if ( event.key.code == sf::Keyboard::Q )
+				{
+					chip8.UnsetKeys(4);
+				}
+
+				if ( event.key.code == sf::Keyboard::W )
+				{
+					chip8.UnsetKeys(5);
+				}
+
+				if ( event.key.code == sf::Keyboard::E )
+				{
+					chip8.UnsetKeys(6);
+				}
+
+				if ( event.key.code == sf::Keyboard::R )
+				{
+					chip8.UnsetKeys(0xD);
+				}
+
+				if ( event.key.code == sf::Keyboard::A )
+				{
+					chip8.UnsetKeys(7);
+				}
+
+				if ( event.key.code == sf::Keyboard::S )
+				{
+					chip8.UnsetKeys(8);
+				}
+
+				if ( event.key.code == sf::Keyboard::D )
+				{
+					chip8.UnsetKeys(9);
+				}
+
+				if ( event.key.code == sf::Keyboard::F )
+				{
+					chip8.UnsetKeys(0xE);
+				}
+				if ( event.key.code == sf::Keyboard::Z )
+				{
+					chip8.UnsetKeys(0xA);
+				}
+
+				if ( event.key.code == sf::Keyboard::X )
+				{
+					chip8.UnsetKeys(0);
+				}
+
+				if ( event.key.code == sf::Keyboard::C )
+				{
+					chip8.UnsetKeys(0xB);
+				}
+
+				if ( event.key.code == sf::Keyboard::V )
+				{
+					chip8.UnsetKeys(0xF);
+				}
 			}
 		}
 
@@ -78,6 +241,5 @@ int main()
 		window.display();
 	}
 
-	std::cin.get();
 	return 0;
 }

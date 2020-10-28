@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "ConsoleColor.h"
 
 /* Memory Map:
  * 0x000 - 0x1FF - Chip 8 interpreter(contains font set in emu)
@@ -24,6 +25,8 @@ public:
 
 	void EmulateCycle();
 	bool LoadROM(const char* path);
+	inline void SetKeys(uint8_t keyCode) { std::cout << (int)keyCode << " " << (int)key[keyCode] << '\n';  key[keyCode] = 1; }
+	inline void UnsetKeys(uint8_t keyCode) { key[keyCode] = 0; }
 	inline uint8_t GetPixel(int x, int y) { return gfx[x + (y * 64)]; }
 
 private:

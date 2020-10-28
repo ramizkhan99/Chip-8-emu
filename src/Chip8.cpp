@@ -1,8 +1,8 @@
-#include "Chip8.h"
-
 #include <iostream>
 #include <fstream>
 #include <time.h>
+
+#include "Chip8.h"
 
 uint8_t chip8Fontset[80] =
 {
@@ -132,7 +132,7 @@ void Chip8::EmulateCycle()
 
 		case 0x4000:
 			// Skip next instruction if Vx != kk
-			if ( V[opcode & 0x0F00] >> 8 != (opcode & 0x00FF) )
+			if ( V[(opcode & 0x0F00) >> 8] != (opcode & 0x00FF) )
 			{
 				pc += 4;
 			}
@@ -238,7 +238,7 @@ void Chip8::EmulateCycle()
 					break;
 
 				default:
-					std::cerr << "Unknown Opcode: " << opcode << std::endl;
+					std::cerr << Color(0x0C) << "Unknown Opcode: " << opcode << std::endl;
 					exit(EXIT_FAILURE);
 					break;
 			}
@@ -263,8 +263,8 @@ void Chip8::EmulateCycle()
 
 		case 0xD000:
 		{
-			uint8_t x = V[(opcode & 0x0F00) >> 8];
-			uint8_t y = V[(opcode & 0x00F0) >> 4];
+			uint8_t x = V[(opcode & 0x0F00) >> 8u];
+			uint8_t y = V[(opcode & 0x00F0) >> 4u];
 			uint8_t height = opcode & 0x000F;
 			uint8_t pixel;
 
@@ -309,7 +309,7 @@ void Chip8::EmulateCycle()
 					break;
 
 				default:
-					std::cerr << "Unknown Opcode: " << opcode << std::endl;
+					std::cerr << Color(0x0C) << "Unknown Opcode: " << opcode << std::endl;
 					exit(EXIT_FAILURE);
 					break;
 			}
@@ -387,13 +387,13 @@ void Chip8::EmulateCycle()
 					break;
 
 				default:
-					std::cerr << "Unknown Opcode: " << opcode << std::endl;
+					std::cerr << Color(0x0C) << "Unknown Opcode: " << opcode << std::endl;
 					exit(EXIT_FAILURE);
 			}
 			break;
 
 		default:
-			std::cerr << "Unknown Opcode: " << opcode << std::endl;
+			std::cerr << Color(0x0C) << "Unknown Opcode: " << opcode << std::endl;
 			exit(EXIT_FAILURE);
 	}
 
