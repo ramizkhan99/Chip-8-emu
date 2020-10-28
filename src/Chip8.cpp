@@ -80,8 +80,8 @@ bool Chip8::LoadROM(const char* path)
 void Chip8::EmulateCycle()
 {
 	opcode = memory[pc] << 8 | memory[pc + 1];
-	std::cout << "PC: " << std::hex << pc << std::endl;
-	std::cout << "Opcode: " << std::hex << opcode << std::endl;
+	/*std::cout << "PC: " << std::hex << pc << std::endl;
+	std::cout << "Opcode: " << std::hex << opcode << std::endl;*/
 
 	switch ( opcode & 0xF000 )
 	{
@@ -326,17 +326,20 @@ void Chip8::EmulateCycle()
 				case 0x000A:
 				{
 					bool keyPressed = false;
-					while ( !keyPressed )
+
+					for ( int i = 0; i < 16; ++i )
 					{
-						for ( uint8_t i = 0; i < 16; ++i )
+						if ( key[i] != 0 )
 						{
-							if ( key[i] != 0 )
-							{
-								V[(opcode & 0x0F00) >> 8] = i;
-								keyPressed = true;
-							}
+							V[(opcode & 0x0F00) >> 8] = i;
+							keyPressed = true;
 						}
 					}
+
+					// If no key is pressed, return and try again.
+					if ( !keyPressed )
+						return;
+
 					pc += 2;
 				}
 				break;

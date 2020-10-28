@@ -4,20 +4,28 @@
 
 #include "Chip8.h"
 
-// TODO: Track keypresses and enable audio
-
+// TODO: Enable audio
+// FIXME: Keypress issues
 int main()
 {
-	// FIXME: Fix the display issues
+	std::string rom;
+
+NEW_GAME:
+	std::cout << "Enter ROM name: ";
+	std::cin >> rom;
+
+	rom = "./games/" + rom;
+
 	Chip8 chip8{};
-	if ( !chip8.LoadROM("./games/INVADERS") )
+	if ( !chip8.LoadROM(rom.c_str()) )
 	{
-		std::cerr << Color(0x0C) << "Failed mate" << "\n";
+		std::cerr << Color(0x0C) << "Failed To Load ROM" << std::endl;
 		std::cin.get();
 		exit(EXIT_FAILURE);
 	}
 
 	std::cout << Color(0x0A) << "ROM Loaded successfully\n";
+	Color();
 
 	uint8_t pixelSize = 16;
 	sf::RectangleShape graphics[64 * 32];
@@ -32,8 +40,8 @@ int main()
 		}
 	}
 
-	sf::RenderWindow window(sf::VideoMode(pixelSize * 64, pixelSize * 32), "Chip 8");
-	//window.setFramerateLimit(60);
+	sf::RenderWindow window(sf::VideoMode(pixelSize * 64, pixelSize * 32), "Chip 8 | By Ramiz Khan(github.com/ramizkhan99)");
+	window.setFramerateLimit(60);
 
 	while ( window.isOpen() )
 	{
@@ -43,6 +51,7 @@ int main()
 			if ( event.type == sf::Event::Closed )
 			{
 				window.close();
+				exit(EXIT_SUCCESS);
 			}
 
 			if ( event.type == sf::Event::KeyPressed )
