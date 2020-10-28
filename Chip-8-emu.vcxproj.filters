@@ -26,5 +26,8 @@
     <ClInclude Include="src\Chip8.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ConsoleColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

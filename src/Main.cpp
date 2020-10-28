@@ -1,15 +1,24 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <Windows.h>
 
 #include "Chip8.h"
+#include "ConsoleColor.h"
+
+// TODO: Track keypresses and enable audio
 
 int main()
 {
+	// FIXME: Fix the display issues
 	Chip8 chip8{};
-	if ( !chip8.LoadROM("./games/INVADERS") )
+	if ( !chip8.LoadROM("./games/BLITZ") )
 	{
-		std::cerr << "Failed mate" << std::endl;
+		std::cerr << Color(0x0C) << "Failed mate" << "\n";
+		std::cin.get();
+		exit(EXIT_FAILURE);
 	}
+
+	std::cout << Color(0x0A) << "ROM Loaded successfully\n";
 
 	uint8_t pixelSize = 16;
 	sf::RectangleShape graphics[64 * 32];
@@ -69,5 +78,6 @@ int main()
 		window.display();
 	}
 
+	std::cin.get();
 	return 0;
 }
