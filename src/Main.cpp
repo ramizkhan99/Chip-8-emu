@@ -10,7 +10,7 @@ int main()
 {
 	// FIXME: Fix the display issues
 	Chip8 chip8{};
-	if ( !chip8.LoadROM("./games/PONG") )
+	if ( !chip8.LoadROM("./games/INVADERS") )
 	{
 		std::cerr << Color(0x0C) << "Failed mate" << "\n";
 		std::cin.get();

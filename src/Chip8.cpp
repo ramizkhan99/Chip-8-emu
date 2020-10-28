@@ -80,8 +80,8 @@ bool Chip8::LoadROM(const char* path)
 void Chip8::EmulateCycle()
 {
 	opcode = memory[pc] << 8 | memory[pc + 1];
-	/*std::cout << "PC: " << std::hex << pc << std::endl;
-	std::cout << "Opcode: " << std::hex << opcode << std::endl;*/
+	std::cout << "PC: " << std::hex << pc << std::endl;
+	std::cout << "Opcode: " << std::hex << opcode << std::endl;
 
 	switch ( opcode & 0xF000 )
 	{
@@ -120,7 +120,7 @@ void Chip8::EmulateCycle()
 
 		case 0x3000:
 			// Skip next instruction if Vx = kk
-			if ( (V[(opcode & 0x0F00) >> 8]) == (opcode & 0x00FF) )
+			if ( V[(opcode & 0x0F00) >> 8] == (opcode & 0x00FF) )
 			{
 				pc += 4;
 			}
@@ -162,7 +162,7 @@ void Chip8::EmulateCycle()
 
 		case 0x7000:
 			// 7xkk: Set V[x] = V[x] + kk
-			V[(opcode & 0x0F00) >> 8] += 0x00FF;
+			V[(opcode & 0x0F00) >> 8] += opcode & 0x00FF;
 			pc += 2;
 			break;
 
@@ -266,20 +266,20 @@ void Chip8::EmulateCycle()
 			uint8_t x = V[(opcode & 0x0F00) >> 8u];
 			uint8_t y = V[(opcode & 0x00F0) >> 4u];
 			uint8_t height = opcode & 0x000F;
-			uint8_t pixel;
+			uint8_t sprite;
 
 			V[0xF] = 0;
 			for ( uint8_t yline = 0; yline < height; yline++ )
 			{
 				//std::cout << (I + yline) << std::endl;
-				pixel = memory[I + yline];
+				sprite = memory[I + yline];
 				for ( int xline = 0; xline < 8; xline++ )
 				{
-					if ( (pixel & (0x80 >> xline)) != 0 )
+					if ( ((sprite >> (7 - xline)) & 1) == 1 )
 					{
-						if ( gfx[(x + xline + ((y + yline) * 64)) % (64 * 32)] == 1 )
+						if ( gfx[(x + xline + ((y + yline) * 64))] == 1 )
 							V[0xF] = 1;
-						gfx[(x + xline + ((y + yline) * 64)) % (64 * 32)] ^= 1;
+						gfx[(x + xline + ((y + yline) * 64))] ^= 1;
 					}
 				}
 			}
