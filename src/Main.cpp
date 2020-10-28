@@ -4,8 +4,6 @@
 
 #include "Chip8.h"
 
-// TODO: Enable audio
-// FIXME: Keypress issues
 int main()
 {
 	std::string rom;

@@ -39,6 +39,13 @@ Chip8::Chip8() : gfx{}, memory{}, stack{}, V{}, key(), drawFlag(false)
 		memory[i] = chip8Fontset[i];
 	}
 
+	if ( !soundBuffer.loadFromFile("beep.wav") )
+	{
+		std::cout << Color(0x0C) << "beep.wav not found. No audio would be provided" << std::endl;
+		Color();
+	}
+
+	beep.setBuffer(soundBuffer);
 	srand(time(NULL));
 }
 
@@ -404,5 +411,9 @@ void Chip8::EmulateCycle()
 		--delayTimer;
 
 	if ( soundTimer > 0 )
+	{
+		beep.play();
 		--soundTimer;
+	}
+
 }

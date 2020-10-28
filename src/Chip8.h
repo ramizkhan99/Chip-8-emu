@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Audio.hpp>
 #include <stdint.h>
 #include "ConsoleColor.h"
 
@@ -52,5 +53,9 @@ private:
 	/* The Stack and Stack Pointer */
 	uint16_t stack[16];
 	uint16_t sp;
+
+	/* For the Beep */
+	sf::SoundBuffer soundBuffer;
+	sf::Sound beep;
 };
 
